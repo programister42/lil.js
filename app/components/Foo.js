@@ -1,6 +1,6 @@
-import {Abstract} from './../../Abstract'
+import {LilComponent} from '../../LilComponent.js'
 
-export class Foo extends Abstract {
+export class Foo extends LilComponent {
     constructor(onClick) {
         super('div')
         this.element.innerText = 'eeeeeeeeeeeeeeeee'

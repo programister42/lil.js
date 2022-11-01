@@ -1,4 +1,4 @@
-export class Abstract {
+export class LilComponent {
     state = {}
 
     constructor(elementName) {
