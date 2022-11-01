@@ -1,25 +1,31 @@
-import { Renderer } from '../Renderer.js'
-import { Bar } from './components/bar.js'
-import { Foo } from './components/foo.js'
+import {Abstract} from './../Abstract'
+import {Foo} from './components/Foo'
 
-export class App {
-    state = {
-        barText: 'This is the first one app developed using lil.js'
+export class App extends Abstract {
+    constructor() {
+        super('div');
+        this.setState({...this.state, name: 'This is the first one app developed using lil.js'})
+        this.element.addEventListener('click', this.onClick)
+        this.render()
     }
+
+    handleChildCLick = () => this.setState({...this.state, name: this.getState().name + '!'})
+
+    foo = new Foo(this.handleChildCLick)
 
     onClick = () => {
-        this.#bar.state.text += '!'
+        const letters = '0123456789ABCDEF'
+        let color = '#'
+
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+        }
+
+        this.foo.setState({color})
     }
 
-    #foo = new Foo()
-    #bar = new Bar(this.state.barText)
-
-    render = () => Renderer.createElement(
-        'div',
-        [
-            this.#foo,
-            this.#bar
-        ],
-        { eventListeners: [Renderer.createListener('click', this.onClick)] }
-    )
+    render() {
+        this.element.innerText = this.getState().name
+        this.element.appendChild(this.foo.element)
+    }
 }
